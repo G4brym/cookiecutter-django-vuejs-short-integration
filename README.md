@@ -1,6 +1,6 @@
 # Cookiecutter Django and vuejs short integration
 
-###Usage
+### Usage
 
 Get `cookiecutter`:
 ```bash
