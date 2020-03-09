@@ -1,0 +1,4 @@
+{
+  "cookiecutter.django_project_name": "Django app",
+  "cookiecutter.vuejs_project_name": "Dashboard app"
+}

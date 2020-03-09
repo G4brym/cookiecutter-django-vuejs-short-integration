@@ -1,0 +1,67 @@
+stages:
+  - build
+  - deploy
+
+
+# -------------------------------------
+# Build jobs
+# -------------------------------------
+
+# .build_base:
+.build_template: &build_base
+  image: node:10.15.1-alpine
+  stage: build
+  tags:
+    - backend
+  script:
+    - apk --update add git zip
+    - mkdir build
+    - npm install
+    - npm run build
+    - printf "$CI_COMMIT_REF_NAME\n$CI_COMMIT_SHORT_SHA\n" > .version.txt
+    - printf "$CI_PROJECT_URL/commit/$CI_COMMIT_SHA\n" >> .version.txt
+    - echo "Create build archive"
+    - ARCHIVE_PATH=build/$ARCHIVE
+    - git archive -o $ARCHIVE_PATH HEAD
+    - zip -rv $ARCHIVE_PATH .version.txt
+    - zip -rv $ARCHIVE_PATH webpack-stats.json
+    - zip -rv $ARCHIVE_PATH build/static
+  artifacts:
+    when: on_success
+    expire_in: 1 hour
+    paths:
+      - build/
+
+build:development:
+  <<: *build_base
+  environment:
+    name: development
+  only:
+    refs:
+      - master
+      - /^feature\/.*$/
+
+# -------------------------------------
+# Deploy jobs
+# -------------------------------------
+
+.deploy_template: &deploy_base
+  image: python:3.6.8-alpine
+  stage: deploy
+  tags:
+    - backend
+  script:
+    # Do your deploy here
+    - exit 1
+
+deploy:development:
+  <<: *deploy_base
+  environment:
+    name: development
+  dependencies:
+    - build:development
+  only:
+    refs:
+      - master
+      - /^feature\/.*$/
+  when: manual

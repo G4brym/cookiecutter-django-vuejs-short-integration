@@ -1,0 +1,81 @@
+from .base import *
+
+SECRET_KEY = 'debug_key'
+
+DEBUG = True
+ALLOWED_HOSTS = ['*', ]
+
+if True:  # User Debug Toolbar
+    INTERNAL_IPS = (
+        'localhost:8090',
+        'localhost',
+        '127.0.0.1'
+    )
+    INSTALLED_APPS += ("debug_toolbar",)
+    MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware", )
+
+LOGGING = {
+    'disable_existing_loggers': False,
+    'version': 1,
+    'handlers': {
+        'console': {
+            # logging handler that outputs log messages to terminal
+            'class': 'logging.StreamHandler',
+            'level': 'DEBUG',  # message level to be written to console
+        },
+    },
+    'loggers': {
+        '': {
+            # this sets root level logger to log debug and higher level
+            # logs to console. All other loggers inherit settings from
+            # root level logger.
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,  # this tells logger to send logging message
+            # to its parent (will send if set to True)
+        },
+        'django.db': {
+            # django also has database level logging
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,  # this tell
+        },
+    },
+}
+LOGGING = {}
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': '{{cookiecutter.django_project_name}}',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': 'mydatabase',
+#     }
+# }
+
+# cache_locations = [
+#     os.environ.get('REDIS_URL'),
+# ]
+#
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": 'redis://localhost:6379/3',
+#         "KEY_PREFIX": 'aws-live',
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#             'MAX_ENTRIES': 10000000
+#         }
+#     }
+# }
+# SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+# SESSION_CACHE_ALIAS = "default"
