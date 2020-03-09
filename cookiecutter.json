@@ -1,4 +1,4 @@
 {
-  "django_project_name": "Django app",
-  "vuejs_project_name": "Dashboard app"
+  "django_project_name": "django",
+  "vuejs_project_name": "dashboard"
 }
