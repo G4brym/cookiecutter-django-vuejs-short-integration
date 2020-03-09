@@ -1,14 +1,14 @@
-{% load render_bundle from utils %}
-{% load static %}
+{% raw %}{% load render_bundle from utils %}{% endraw %}
+{% raw %}{% load static %}{% endraw %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{{cookiecutter.vuejs_project_name}}</title>
-    <meta name="url" content="{{ base_url }}">
-    <meta name="branches" content="{{ branches }}">
-    <meta name="version" content="{{ VERSION.json|default_if_none:"{}" }}">
-    <link rel="icon" type="image/png" href="{% static "images/favicon.png" %}" sizes="32x32"/>
+    <meta name="url" content="{% raw %}{{ base_url }}{% endraw %}">
+    <meta name="branches" content="{% raw %}{{ branches }}{% endraw %}">
+    <meta name="version" content="{% raw %}{{ VERSION.json|default_if_none:"{}" }}{% endraw %}">
+    <link rel="icon" type="image/png" href="{% raw %}{% static "images/favicon.png" %}{% endraw %}" sizes="32x32"/>
 </head>
 
 <body>
@@ -16,6 +16,6 @@
     <router-view></router-view>
 </div>
 
-{% render_bundle 'index' %}
+{% raw %}{% render_bundle 'index' %}{% endraw %}
 </body>
 </html>
