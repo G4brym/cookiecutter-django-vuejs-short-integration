@@ -79,3 +79,5 @@ DATABASES = {
 # }
 # SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 # SESSION_CACHE_ALIAS = "default"
+
+IS_ENV_LOCAL = True
