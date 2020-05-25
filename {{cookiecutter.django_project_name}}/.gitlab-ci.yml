@@ -11,8 +11,6 @@ stages:
 .build_template: &build_base
   image: node:10.15.1-alpine
   stage: build
-  tags:
-    - backend
   script:
     - apk --update add git zip
     - mkdir build
@@ -48,8 +46,6 @@ build:development:
 .deploy_template: &deploy_base
   image: python:3.6.8-alpine
   stage: deploy
-  tags:
-    - backend
   script:
     # Do your deploy here
     - exit 1
